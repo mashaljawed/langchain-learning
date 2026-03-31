@@ -37,15 +37,16 @@ vectorstore = FAISS.from_documents(chunks, embeddings)
 # 5. Create retriever
 retriever = vectorstore.as_retriever()
 
-# 6. Query
-query = "AI milestones"
-retrieved_docs = retriever.invoke(query)
+if __name__ == "__main__":
+    # 6. Query
+    query = "AI milestones"
+    retrieved_docs = retriever.invoke(query)
 
-retrieved_text = "\n".join([doc.page_content for doc in retrieved_docs])
+    retrieved_text = "\n".join([doc.page_content for doc in retrieved_docs])
 
-print("\nRetrieved Context:\n", retrieved_text)
+    print("\nRetrieved Context:\n", retrieved_text)
 
-# 7. Summarize using Task 2 chain
-result = chain_3.invoke({"text": retrieved_text})
+    # 7. Summarize using Task 2 chain
+    result = chain_3.invoke({"text": retrieved_text})
 
-print("\nFinal Summary:\n", result)
+    print("\nFinal Summary:\n", result)
