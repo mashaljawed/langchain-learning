@@ -22,7 +22,15 @@ prompt_3_sentences = PromptTemplate(
 
 chain_3 = prompt_3_sentences | chat_model | parser
 
-text = """
+prompt_1_sentence = PromptTemplate(
+    input_variables=["text"],
+    template="Summarize the following text into exactly 1 sentence:\n\n{text}"
+)
+
+chain_1 = prompt_1_sentence | chat_model | parser
+
+if __name__ == "__main__":
+    text = """
 Artificial intelligence (AI) is a branch of computer science that aims to create machines capable of performing tasks that typically require human intelligence. 
 These tasks include problem-solving, understanding natural language, recognizing patterns, and making decisions. 
 Machine learning, a subset of AI, enables systems to learn from data and improve over time without explicit programming. 
@@ -34,14 +42,8 @@ Researchers continue to explore ways to make AI more transparent, accountable, a
 As technology evolves, AI is expected to play an increasingly significant role in shaping our society, economy, and daily lives.
 """
 
-result_3 = chain_3.invoke({"text": text})
-print("3-sentence summary:\n", result_3)
+    result_3 = chain_3.invoke({"text": text})
+    print("3-sentence summary:\n", result_3)
 
-prompt_1_sentence = PromptTemplate(
-    input_variables=["text"],
-    template="Summarize the following text into exactly 1 sentence:\n\n{text}"
-)
-
-chain_1 = prompt_1_sentence | chat_model | parser
-result_1 = chain_1.invoke({"text": text})
-print("\n1-sentence summary:\n", result_1)
+    result_1 = chain_1.invoke({"text": text})
+    print("\n1-sentence summary:\n", result_1)
